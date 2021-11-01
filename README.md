@@ -1,2 +1,2 @@
 # SchoolCode
-This is for my school code
+This project is being developed by students of Riyadhschool.
