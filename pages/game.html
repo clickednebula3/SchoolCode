@@ -13,7 +13,198 @@
             [<a href="./game.html" target="_self">Game</a>]
         </p>
 
-        <p>Work In Progress... Game Not Ready Yet...</p>
+        <br>===========<br>HTML GAME<br>===========<br>
+
+        <div id="textBox">
+            Press Start (This game is still being developed)<br>
+            <input type="submit" value="Start" onclick="lineSorter()">
+        </div>
+        
+
+        <script>
+            //global variables
+            var lineLevel = 0;
+
+            //choice variables
+            var latestChoice;
+            var BurgerOrPizzaz;
+            var LateForSchool;
+
+            function delLine(elemID) {
+                var DelBox = document.getElementById(elemID);
+                DelBox.parentNode.removeChild(DelBox);
+            }
+            function justText(text) {
+                document.body.innerHTML+=text;
+            }
+            function submitLine(text) {
+                var fullText = '<div id="line">'+text+'<br><input type="button" value="Proceed" onclick="lineSorter()"/>'+'</div>';
+                document.body.innerHTML+= fullText;
+                lineLevel+=1;
+            }
+            function submitLineS(text, delay) {
+                var textS = '';
+                var texted = new String(text);
+                var index = 0;
+                for (i=0; i<texted.length; i++) {
+                    setTimeout( function () {
+                        textS += text.charAt(index);
+                        if (index>=1){
+                            delLine("line");
+                        }
+
+                        fullTextS = '<div id="line">'+textS+'<br>';
+                        if (index+1==texted.length) {
+                            fullTextS += '<input type="button" value="Proceed" onclick="lineSorter()"/>';
+                        }
+                        fullTextS += '</div>';
+
+                        document.body.innerHTML+= fullTextS;
+                        index+=1;
+                    }, delay*i);
+                }
+                lineLevel+=1;
+            }
+            function choicesLine(text, choices) {
+                var fullText = '<div id="line">' + text + '<br>';
+                for(var i in choices) {
+                    fullText += '<input type="button" value=\"' + choices[j] +'\" onclick="choiceSorter(\'' + choices[i] + '\')"/> ';
+                }
+                fullText += '</div>';
+
+                document.body.innerHTML += fullText;
+                lineLevel+=1;
+            }
+            function choicesLineS(text, delay, choices) {
+                var textS = '';
+                var texted = new String(text);
+                var index = 0;
+                for (i=0; i<texted.length; i++) {
+                    setTimeout( function () {
+                        textS += text.charAt(index);
+                        if (index>=1){
+                            delLine("line");
+                        }
+
+                        fullTextS = '<div id="line">'+textS+'<br>';
+                        if (index+1==texted.length) {
+                            for(var j in choices) {
+                                fullTextS += '<input type="button" value=\"' + choices[j] +'\" onclick="choiceSorter(\'' + choices[j] + '\')"/> ';
+                            }
+                        }
+                        fullTextS += '</div>';
+
+                        document.body.innerHTML+= fullTextS;
+                        index+=1;
+                    }, delay*i);
+                }
+                lineLevel+=1;
+            }
+            function choiceSorter(choice) {
+                latestChoice = choice;
+                if (choice == 'Burger' || choice == 'Pizza') {
+                    BurgerOrPizzaz = choice;
+                }
+                if (choice == 'Head Dicrectly to School!') {
+                    LateForSchool = 'Run';
+                }
+                if (choice == 'Prepare for School Normally') {
+                    LateForSchool = 'Late';
+                }
+                if (choice == 'Skip School') {
+                    LateForSchool = 'Skip';
+                }
+
+                lineSorter();
+            }
+
+            function lineSorter() {
+                if(lineLevel==0) {
+                    delLine("textBox");
+                    submitLineS("*Welcome to the Game", 20);
+
+                } else if (lineLevel==1) {
+                    delLine("line");
+                    submitLineS("*In this game, you, the player, will play your options based on which choices you have", 20);
+                    
+                } else if (lineLevel==2) {
+                    delLine("line");
+                    submitLineS("*Choices will appear as bottons on screen", 20);
+                    
+                } else if (lineLevel==3) {
+                    delLine("line");
+                    choicesLineS("*To practice, choose one of the options below.<br>*Which food do you prefer?", 20, ['Burger', 'Pizza']);//refering to burgers vs pizza
+                    
+                } else if (lineLevel==4) {
+                    delLine("line");
+                    submitLineS("*mhm", 200);
+                    /*if (BurgerOrPizzaz=='Burger'){
+                        submitLineS("*mhm", 200);
+                    } else {//idea: add a video for each of foods
+                        submitLineS("*aha", 200);
+                    }*/
+                    
+                } else if (lineLevel==5) {
+                    delLine("line");
+                    choicesLineS("*Anyways, you just learned how to use bottons to choose from your options!", 20, ['Thanks']);
+                    
+                } else if (lineLevel==6) {
+                    delLine("line");
+                    submitLineS("*Let's start your journey", 20);
+                    
+                } else if (lineLevel==7) {
+                    delLine("line");
+                    submitLineS("*...", 200);
+                    
+                } else if (lineLevel==8) {
+                    delLine("line");
+                    submitLineS("*You wake up...", 20);
+                    
+                } else if (lineLevel==9) {
+                    delLine("line");
+                    submitLineS("*You stare at the clock..", 20);
+                    
+                } else if (lineLevel==10) {
+                    delLine("line");
+                    choicesLineS("*It's 6:50AM! You're gonna miss school!", 15, ["Head Dicrectly to School!", "Prepare for School Normally", "Skip School"]);
+                    
+                } else if (lineLevel==11) {
+                    delLine("line");
+                    submitLineS("*You decided to " + latestChoice, 20);
+                    
+                } else if (lineLevel==12) {
+                    delLine("line");
+                    submitLineS("*(The rest of the game is a work in progress...)", 20);
+                    
+                } else if (lineLevel==13) {
+                    delLine("line");
+                    submitLineS("*wip", 20);
+                    
+                } else if (lineLevel==14) {
+                    delLine("line");
+                    submitLineS("*wip", 20);
+                    
+                } else if (lineLevel==15) {
+                    delLine("line");
+                    submitLineS("*wip", 20);
+                    
+                } else if (lineLevel==16) {
+                    delLine("line");
+                    submitLineS("The End", 20);
+                    
+                } else {
+                    lineLevel=1;
+                }
+
+
+            }
+
+
+        </script>
+
+        <!--    <p>Work In Progress... Game Not Ready Yet...</p>   -->
     </body>
 </html>
 <!--This page going to be a game!-->
+
+<!--  <input type="text" id="Intro" size="20" name="Intro">  -->
