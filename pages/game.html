@@ -15,7 +15,7 @@
 
         <br>===========<br>HTML GAME<br>===========<br>
 
-        <div id="textBox">
+        <div id="line">
             Press Start (This game is still being developed)<br>
             <input type="submit" value="Start" onclick="lineSorter()">
         </div>
@@ -29,6 +29,7 @@
             var latestChoice;
             var BurgerOrPizzaz;
             var LateForSchool;
+            var delieveryMan;
 
             function delLine(elemID) {//deletes the givin line of text
                 var DelBox = document.getElementById(elemID);
@@ -110,18 +111,24 @@
                 if (choice == 'Head Dicrectly to School!') {
                     LateForSchool = 'Run';
                 }
-                if (choice == 'Prepare for School Normally') {
+                if (choice == 'Prepare for School Normally and be Late for the First Class') {
                     LateForSchool = 'Late';
                 }
                 if (choice == 'Skip School') {
                     LateForSchool = 'Skip';
+                }
+                if (choice == 'Eat the burger' || choice == 'Eat the pizza') {
+                    delieveryMan = 'Eat';
+                }
+                if (choice == 'Put it in the kitchen') {
+                    delieveryMan = 'Keep';
                 }
 
                 lineSorter();
             }
             function lineSorter() {//manages the level and the line to output
                 if(lineLevel==0) {
-                    delLine("textBox");
+                    delLine("line");
                     submitLineS("*Welcome to the Game", 20);
 
                 } else if (lineLevel==1) {
@@ -139,12 +146,7 @@
                 } else if (lineLevel==4) {
                     delLine("line");
                     submitLineS("*mhm", 200);
-                    /*if (BurgerOrPizzaz=='Burger'){
-                        submitLineS("*mhm", 200);
-                    } else {//idea: add a video for each of foods
-                        submitLineS("*aha", 200);
-                    }*/
-                    
+
                 } else if (lineLevel==5) {
                     delLine("line");
                     choicesLineS("*Anyways, you just learned how to use bottons to choose from your options!", 20, ['Thanks']);
@@ -167,7 +169,7 @@
                     
                 } else if (lineLevel==10) {
                     delLine("line");
-                    choicesLineS("*It's 6:50AM! You're gonna miss school!", 15, ["Head Dicrectly to School!", "Prepare for School Normally", "Skip School"]);
+                    choicesLineS("*It's 6:50AM! You're gonna miss school!", 15, ["Head Dicrectly to School!", "Prepare for School Normally and be Late for the First Class", "Skip School"]);
                     
                 } else if (lineLevel==11) {
                     delLine("line");
@@ -175,26 +177,110 @@
                     
                 } else if (lineLevel==12) {
                     delLine("line");
-                    submitLineS("*(The rest of the game is a work in progress...)", 20);
+                    if (LateForSchool == 'Run') {//Head Dicrectly to School!
+                        submitLineS("*You grabbed your bag and ran quickly to school", 20);
+                    } else if (LateForSchool == 'Late') {//Prepare for School Normally and be Late for the First Class
+                        submitLineS("*You got ready for school and headed there lately", 40);
+                    } else {//Skip School
+                        submitLineS("*You went back to bed", 20);
+                    }
                     
                 } else if (lineLevel==13) {
                     delLine("line");
-                    submitLineS("*wip", 20);
+                    if (LateForSchool == 'Run') {//Head Dicrectly to School!
+                        submitLineS("*You entered the class just in time for it to start", 20);
+                    } else if (LateForSchool == 'Late') {//Prepare for School Normally and be Late for the First Class
+                        submitLineS("*When you reached school, you were late for the first class, which made the teacher remove some marks", 20);
+                    } else {//Skip School
+                        submitLineS("*Before you could sleep, your house's doorbell rang", 20);
+                    }
                     
                 } else if (lineLevel==14) {
                     delLine("line");
-                    submitLineS("*wip", 20);
+                    if (LateForSchool == 'Run') {//Head Dicrectly to School!
+                        submitLineS("*The Math teacher came in", 20);
+                    } else if (LateForSchool == 'Late') {//Prepare for School Normally and be Late for the First Class
+                        submitLineS("*You entered the classroom", 40);
+                    } else {//Skip School
+                        if (BurgerOrPizzaz == "Burger") {//Skip School - Burger
+                            submitLineS("*The burger delievery guy was there and he gave you a paper bag that contained a burger", 20);
+                        } else {//Skip School - Pizza
+                            submitLineS("*The pizza man came and handed you a square box", 20);
+                        }
+                    }
                     
                 } else if (lineLevel==15) {
                     delLine("line");
-                    submitLineS("*wip", 20);
+                    if (LateForSchool == 'Run') {//Head Dicrectly to School!
+                        submitLineS("*He asked the students to put the homework paper on the desk", 20);
+                    } else if (LateForSchool == 'Late') {//Prepare for School Normally and be Late for the First Class
+                        submitLineS("*The teacher greeted you and asked you about homework", 20);
+                    } else{//Skip School
+                        if (BurgerOrPizzaz == "Burger") {//Skip School - Burger
+                            choicesLineS("*What to do with the bag?", 20, ["Eat the burger", "Put it in the kitchen"]);
+                        } else {//Skip School - Pizza
+                            choicesLineS("*What to do with the box?", 20, ["Eat the pizza", "Put it in the kitchen"]);
+                        }
+                    }
                     
                 } else if (lineLevel==16) {
+                    delLine("line");
+                    if (LateForSchool == 'Run') {//Head Dicrectly to School!
+                        submitLineS("*You searched through your bag, and realized you missed it at home", 20);
+                    } else if (LateForSchool == 'Late') {//Prepare for School Normally and be Late for the First Class
+                        submitLineS("*Luckily, you remembered to bring it before heading out", 20);
+                    } else {//Skip School
+                        if (delieveryMan == 'Eat') {//Skip School - Eat
+                            submitLineS("*It tasted yummy", 20);
+                        } else {//Skip School - Keep
+                            if (BurgerOrPizzaz == 'Burger') {//Skip School - Keep - Burger
+                                submitLineS("*You placed the bag on the table", 20);
+                            } else {//Skip School - Keep - Pizza
+                                submitLineS("*You placed the box on the table", 20);
+                            }
+                        }
+                    }
+                    
+                } else if (lineLevel==17) {
+                    delLine("line");
+                    if (LateForSchool == 'Run') {//Head Dicrectly to School!
+                        submitLineS("*The teacher took away some of your marks for forgetting your homework", 20);
+                    } else if (LateForSchool == 'Late') {//Prepare for School Normally and be Late for the First Class
+                        submitLineS("*The teacher looked at it and seemed satisfied with your answers", 20);
+                    } else {//Skip School
+                        submitLineS("*You headed for bed", 20);
+                    }
+                    
+                } else if (lineLevel==18) {
+                    delLine("line");
+                    submitLineS("*wip", 20);
+                    
+                } else if (lineLevel==19) {
+                    delLine("line");
+                    submitLineS("*wip", 20);
+                    
+                } else if (lineLevel==20) {
+                    delLine("line");
+                    submitLineS("*wip", 20);
+                    
+                } else if (lineLevel==21) {
+                    delLine("line");
+                    submitLineS("*wip", 20);
+                    
+                } else if (lineLevel==22) {
+                    delLine("line");
+                    submitLineS("*wip", 20);
+                    
+                } else if (lineLevel==23) {
+                    delLine("line");
+                    submitLineS("*wip", 20);
+                    
+                } else if (lineLevel==24) {
                     delLine("line");
                     submitLineS("The End", 20);
                     
                 } else {
-                    lineLevel=1;
+                    lineLevel=0;
                 }
 
 
