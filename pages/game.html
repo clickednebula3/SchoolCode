@@ -1,7 +1,7 @@
 <!Doctype html>
 <html dir="ltr" lang="en">
     <head>
-        <title>School Code Game</title>
+        <title>School HTML Gaming</title>
         <meta charset="UTF-8">
     </head>
     <body style="background-color:rgb(245, 155, 155);">
@@ -30,19 +30,19 @@
             var BurgerOrPizzaz;
             var LateForSchool;
 
-            function delLine(elemID) {
+            function delLine(elemID) {//deletes the givin line of text
                 var DelBox = document.getElementById(elemID);
                 DelBox.parentNode.removeChild(DelBox);
             }
-            function justText(text) {
+            function justText(text) {//just adds text to the page (note: doesn't get deleted)
                 document.body.innerHTML+=text;
             }
-            function submitLine(text) {
+            function submitLine(text) {//adds a line with a button
                 var fullText = '<div id="line">'+text+'<br><input type="button" value="Proceed" onclick="lineSorter()"/>'+'</div>';
                 document.body.innerHTML+= fullText;
                 lineLevel+=1;
             }
-            function submitLineS(text, delay) {
+            function submitLineS(text, delay) {//adds a line with a button in an amount of time
                 var textS = '';
                 var texted = new String(text);
                 var index = 0;
@@ -65,7 +65,7 @@
                 }
                 lineLevel+=1;
             }
-            function choicesLine(text, choices) {
+            function choicesLine(text, choices) {//adds a line with multiple buttons
                 var fullText = '<div id="line">' + text + '<br>';
                 for(var i in choices) {
                     fullText += '<input type="button" value=\"' + choices[j] +'\" onclick="choiceSorter(\'' + choices[i] + '\')"/> ';
@@ -75,7 +75,7 @@
                 document.body.innerHTML += fullText;
                 lineLevel+=1;
             }
-            function choicesLineS(text, delay, choices) {
+            function choicesLineS(text, delay, choices) {//adds a line with multiple buttons in an amount of time
                 var textS = '';
                 var texted = new String(text);
                 var index = 0;
@@ -100,7 +100,9 @@
                 }
                 lineLevel+=1;
             }
-            function choiceSorter(choice) {
+
+
+            function choiceSorter(choice) {//stores and manages player choices
                 latestChoice = choice;
                 if (choice == 'Burger' || choice == 'Pizza') {
                     BurgerOrPizzaz = choice;
@@ -117,8 +119,7 @@
 
                 lineSorter();
             }
-
-            function lineSorter() {
+            function lineSorter() {//manages the level and the line to output
                 if(lineLevel==0) {
                     delLine("textBox");
                     submitLineS("*Welcome to the Game", 20);
