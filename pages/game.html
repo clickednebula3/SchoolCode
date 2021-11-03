@@ -13,10 +13,10 @@
             [<a href="./game.html" target="_self">Game</a>]
         </p>
 
-        <br>===========<br>HTML GAME<br>===========<br>
+        <br>===========<br>HTML GAME<br>===========<br><br>
 
         <div id="line">
-            Press Start (This game is still being developed)<br>
+            Press Start (This game is still being developed and the story is not final)<br>
             <input type="submit" value="Start" onclick="lineSorter()">
         </div>
         
@@ -128,6 +128,8 @@
                 lineSorter();
             }
             function lineSorter() {//manages the level and the line to output
+                var audio = new Audio('../sound/soundeffects/Undertale Sound Effect - Taking Damage.ogg');
+                audio.play();
                 if(lineLevel==0) {
                     delLine("line");
                     submitLineS("*Welcome to the Game", 20);
