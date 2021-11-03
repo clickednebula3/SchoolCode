@@ -29,6 +29,8 @@
             //choice variables
             var latestChoice = '';
 
+            var replay = false;
+
             var BurgerOrPizzaz = '';
             var LateForSchool = '';
             var lookForBro = '';
@@ -133,78 +135,114 @@
                 if (choice == 'Hide') {broSkipSchool = 'Hide';}
                 if (choice == 'Accept Brother Deal') {brodealornodeal = 'Accept';}
                 if (choice == 'Decline Brother Deal') {brodealornodeal = 'Decline';}
-                if (choice == 'Hide from mom') {momalmosthere == 'Hide';}
-                if (choice == 'Wait and explain') {momalmosthere == 'Wait';}
-                if (choice == 'Run to school') {momalmosthere == 'Run';}
-                if (choice == 'Help the cat') {cathelper == 'Help'};
-                if (choice == 'Do not help the cat') {cathelper == 'Don\'t'};
+                if (choice == 'Hide from mom') {momalmosthere = 'Hide';}
+                if (choice == 'Wait and explain') {momalmosthere = 'Wait';}
+                if (choice == 'Run to school') {momalmosthere = 'Run';}
+                if (choice == 'Help the cat') {cathelper = 'Help'};
+                if (choice == 'Do not help the cat') {cathelper = 'Dont'};
 
                 lineSorter();
             }
             function lineSorter() {//manages the level and the line to output
                 var audio = new Audio('../sound/soundeffects/Undertale Sound Effect - Taking Damage.ogg');
-                //audio.play();-----------------------------------------------------------------------------------------------------
-                if(lineLevel==0) {
+                //audio.play();
+                if (lineLevel==0) {
                     delLine("line");
-                    submitLineS("*Welcome to the Game", 20);
+                    if (replay) {
+                        submitLineS("*Hello again! Welcome to the game", 20);
+                    } else {
+                        submitLineS("*Welcome to the Game", 20);
+                    }
                     lineLevel+=1;
 
-                } else if (lineLevel==1) {
+                }
+                else if (lineLevel==1) {
                     delLine("line");
-                    submitLineS("*In this game, you, the player, will play your options based on which choices you have", 20);
+                    if (replay) {
+                        submitLineS("*You must already know how to play your options based on choices you are given", 20);
+                    } else {
+                        submitLineS("*In this game, you, the player, will play your options based on which choices you have", 20);
+                    }
                     lineLevel+=1;
                     
-                } else if (lineLevel==2) {
+                }
+                else if (lineLevel==2) {
                     delLine("line");
-                    submitLineS("*Choices will appear as bottons on screen", 20);
+                    if (replay) {
+                        submitLineS("*As we've already discussed: Choices will appear as bottons on screen", 20);
+                    } else {
+                        submitLineS("*Choices will appear as bottons on screen", 20);
+                    }
                     lineLevel+=1;
                     
-                } else if (lineLevel==3) {
+                }
+                else if (lineLevel==3) {
                     delLine("line");
-                    choicesLineS("*To practice, choose one of the options below.<br>*Which food do you prefer?", 20, ['Burger', 'Pizza']);//refering to burgers vs pizza
+                    if (replay) {
+                        choicesLineS("*But just to test your memory, practice choosing one of these options.<br>*Which food do you prefer?", 20, ['Burger', 'Pizza']);
+                    } else {
+                        choicesLineS("*To practice, choose one of the options below.<br>*Which food do you prefer?", 20, ['Burger', 'Pizza']);
+                    }
                     lineLevel+=1;
                     
-                } else if (lineLevel==4) {
+                }
+                else if (lineLevel==4) {
                     delLine("line");
                     submitLineS("*mhm", 200);
                     lineLevel+=1;
 
-                } else if (lineLevel==5) {
+                }
+                else if (lineLevel==5) {
                     delLine("line");
-                    choicesLineS("*Anyways, you just learned how to use bottons to choose from your options!", 20, ['Thanks']);
+                    if (replay) {
+                        choicesLineS("*Anyways, I shouldn't keep you here too long", 20, ['Yeah, I have school']);
+                    } else {
+                        choicesLineS("*Anyways, you just learned how to use bottons to choose from your options!", 20, ['Thanks']);
+                    }
                     lineLevel+=1;
                     
-                } else if (lineLevel==6) {
+                }
+                else if (lineLevel==6) {
                     delLine("line");
-                    submitLineS("*Let's start your journey", 20);
+                    if (replay) {
+                        submitLineS("*We should start your journey already", 20);
+                    } else {
+                        submitLineS("*Let's start your journey", 20);
+                    }
                     lineLevel+=1;
                     
-                } else if (lineLevel==7) {
+                }
+                else if (lineLevel==7) {
                     delLine("line");
                     submitLineS("*...", 200);
                     lineLevel+=1;
                     
-                } else if (lineLevel==8) {
+                }
+                else if (lineLevel==8) {
                     delLine("line");
                     submitLineS("*You wake up...", 20);
                     lineLevel+=1;
                     
-                } else if (lineLevel==9) {
+                }
+                else if (lineLevel==9) {
                     delLine("line");
                     submitLineS("*You stare at the clock..", 20);
                     lineLevel+=1;
                     
-                } else if (lineLevel==10) {
+                }
+                else if (lineLevel==10) {
                     delLine("line");
                     choicesLineS("*It's 6:50AM! You're gonna miss school!", 15, ["Head Dicrectly to School!", "Prepare for School Normally and be Late for the First Class", "Skip School"]);
                     lineLevel+=1;
                     
-                } else if (lineLevel==11) {
+                }
+                else if (lineLevel==11) {
                     delLine("line");
                     submitLineS("*You decided to " + latestChoice, 20);
                     lineLevel+=1;
                     
-                } else if (lineLevel==12) {
+                }
+                else if (lineLevel==12) {
                     delLine("line");
                     if (LateForSchool == 'Run') {//Head Dicrectly to School!
                         submitLineS("*You grabbed your bag and ran quickly to school", 20);
@@ -215,7 +253,8 @@
                     }
                     lineLevel+=1;
                     
-                } else if (lineLevel==13) {
+                }
+                else if (lineLevel==13) {
                     delLine("line");
                     if (LateForSchool == 'Run') {//Head Dicrectly to School!
                         submitLineS("*You entered the class just in time for it to start", 20);
@@ -226,7 +265,8 @@
                     }
                     lineLevel+=1;
                     
-                } else if (lineLevel==14) {
+                }
+                else if (lineLevel==14) {
                     delLine("line");
                     if (LateForSchool == 'Run') {//Head Dicrectly to School!
                         submitLineS("*The Math teacher came in", 20);
@@ -241,7 +281,8 @@
                     }
                     lineLevel+=1;
                     
-                } else if (lineLevel==15) {
+                }
+                else if (lineLevel==15) {
                     delLine("line");
                     if (LateForSchool == 'Run') {//Head Dicrectly to School!
                         submitLineS("*He asked the students to put the homework paper on the desk", 20);
@@ -256,7 +297,8 @@
                     }
                     lineLevel+=1;
                     
-                } else if (lineLevel==16) {
+                }
+                else if (lineLevel==16) {
                     delLine("line");
                     if (LateForSchool == 'Run') {//Head Dicrectly to School!
                         submitLineS("*You searched through your bag, and realized you missed it at home", 20);
@@ -275,7 +317,8 @@
                     }
                     lineLevel+=1;
                     
-                } else if (lineLevel==17) {
+                }
+                else if (lineLevel==17) {
                     delLine("line");
                     if (LateForSchool == 'Run') {//Head Dicrectly to School!
                         submitLineS("*The teacher took away some of your marks for forgetting your homework", 20);
@@ -286,7 +329,8 @@
                     }
                     lineLevel+=1;
                     
-                } else if (lineLevel==18) {
+                }
+                else if (lineLevel==18) {
                     delLine("line");
                     if (LateForSchool == 'Run') {//Head Dicrectly to School!
                         submitLineS("*The class started, and the teacher started talking about angles and lines..", 20);
@@ -297,7 +341,8 @@
                     }
                     lineLevel+=1;
                     
-                } else if (lineLevel==19) {
+                }
+                else if (lineLevel==19) {
                     delLine("line");
                     if (LateForSchool == 'Run') {//Head Dicrectly to School!
                         submitLineS("*You slept through the class", 20);
@@ -308,7 +353,8 @@
                     }
                     lineLevel+=1;
                     
-                } else if (lineLevel==20) {
+                }
+                else if (lineLevel==20) {
                     delLine("line");
                     if (LateForSchool == 'Run') {//Head Dicrectly to School!
                         submitLineS("*...", 20);
@@ -319,7 +365,8 @@
                     }
                     lineLevel+=1;
                     
-                } else if (lineLevel==21) {
+                }
+                else if (lineLevel==21) {
                     delLine("line");
                     if (LateForSchool == 'Run') {//Head Dicrectly to School!
                         submitLineS("*[Ring][Ring!]", 20);
@@ -330,7 +377,8 @@
                     }
                     lineLevel+=1;
                     
-                } else if (lineLevel==22) {
+                }
+                else if (lineLevel==22) {
                     delLine("line");
                     if (LateForSchool == 'Run') {//Head Dicrectly to School!
                         submitLineS("*The class bell woke you up, everyone already left except the teacher", 20);
@@ -341,7 +389,8 @@
                     }
                     lineLevel+=1;
                     
-                } else if (lineLevel==23) {
+                }
+                else if (lineLevel==23) {
                     delLine("line");
                     if (LateForSchool == 'Run') {//Head Dicrectly to School!
                         submitLineS("*The Teacher confronted you about sleeping", 20);//the teacher confronts the student for not usually being like this
@@ -352,7 +401,8 @@
                     }
                     lineLevel+=1;
                     
-                } else if (lineLevel==24) {
+                }
+                else if (lineLevel==24) {
                     delLine("line");
                     if (LateForSchool == 'Run') {//Head Dicrectly to School!
                         submitLineS("*He told you that you are usually not like this, and that he believes that you can do better", 20);
@@ -369,7 +419,8 @@
                     }
                     lineLevel+=1;
                     
-                } else if (lineLevel==25) {
+                }
+                else if (lineLevel==25) {
                     delLine("line");
                     if (LateForSchool == 'Run') {//Head Dicrectly to School!
                         submitLineS("*You leave class thinking about what he said", 20);
@@ -390,7 +441,8 @@
                     }
                     lineLevel+=1;
                     
-                } else if (lineLevel==26) {
+                }
+                else if (lineLevel==26) {
                     delLine("line");
                     if (LateForSchool == 'Run') {//Head Dicrectly to School!
                         submitLineS("*You start heading home", 20);
@@ -415,7 +467,8 @@
                     }
                     lineLevel+=1;
                     
-                } else if (lineLevel==27) {
+                }
+                else if (lineLevel==27) {
                     delLine("line");
                     if (LateForSchool == 'Run') {//Head Dicrectly to School!
                         choicesLineS("*On your way, you see a cat stuck in the bushes, help it?", 20, ['Help the cat', 'Do not help the cat']);
@@ -444,20 +497,26 @@
                     }
                     lineLevel+=1;
                     
-                } else if (lineLevel==28) {
+                }
+                else if (lineLevel==28) {
                     delLine("line");
                     if (LateForSchool == 'Run') {//Head Dicrectly to School!
-                        submitLineS("*wip", 20);
+                        if (cathelper == 'Help') {
+                            inventory.push("Blue Apple");
+                            submitLineS("*You helped that cat!<br>*The cat thanked you and gave you a blue apple<br>*[Blue Apple] has been added to your inventory", 20);
+                        } else if (cathelper == 'Dont') {
+                            submitLineS("*You continue heading home..", 20);
+                        }
                     } else if (LateForSchool == 'Late') {//Prepare for School Normally and be Late for the First Class
                         if (lookForBro == 'Wait') {//Late - Wait
                             submitLineS("*He doesn't seem to be coming..", 20);
                             //next: look for bro late (teacher alreadt left) (scary route)
                         } else if (lookForBro == 'Look') {//Late - Look
-                            choicesLineS("*Bad idea. Run.", 10, ['Run']);//next: you didnt find him
+                            choicesLineS("*Bad idea.<br>*Run.", 10, ['Run']);//next: you didnt find him
                         }
                     } else if (LateForSchool == 'Skip') {//Skip School
                         if (broSkipSchool == 'Snitch') {//Skip School - Snitch
-                            choicesLineS("*You are now alone and your mother is coming anyime now", 20, ['Hide from mom', 'Wait and explain', 'Run to school']);
+                            choicesLineS("*You are now alone and your mother is coming anytime now", 20, ['Hide from mom', 'Wait and explain', 'Run to school']);
                             //next if wait: options: lie - tell truth - another lie - half the truth
                         } else if (broSkipSchool == 'Confront') {//Skip School - Confront
                             if (brodealornodeal == 'Accept') {
@@ -476,82 +535,149 @@
                     }
                     lineLevel+=1;
                     
-                } else if (lineLevel==29) {
+                }
+                else if (lineLevel==29) {
+                    delLine("line");
+                    if (LateForSchool == 'Run') {//Head Dicrectly to School!
+                        submitLineS("You reach home and enter..", 20)
+                    } else if (LateForSchool == 'Late') {//Prepare for School Normally and be Late for the First Class
+                        if (lookForBro == 'Wait') {//Late - Wait
+                            submitLineS("*It has been too long.<br>*You decided to look for him anyways", 20);
+                            //next: look for bro late (teacher alreadt left) (scary route)
+                        } else if (lookForBro == 'Look') {//Late - Look
+                            choicesLineS("*He wasn't in the bathroom", 20);
+                        }
+                    } else if (LateForSchool == 'Skip') {//Skip School
+                        if (broSkipSchool == 'Snitch') {//Skip School - Snitch
+                            choicesLineS("*WIP");
+                        } else if (broSkipSchool == 'Confront') {//Skip School - Confront
+                            if (brodealornodeal == 'Accept') {
+                                if (delieveryMan == 'Eat') {
+                                    submitLineS("*Bro realized what you have done.", 50);
+                                } else if (delieveryMan == 'Keep') {
+                                    submitLineS("*Your brother wants to tell you the real reason he is at home...", 35);
+                                }
+                            } else if (brodealornodeal == 'Decline') {
+                                submitLineS("*", 20)
+                            }
+                        } else if (broSkipSchool == 'Hide') {//Skip School - Hide
+                            submitLineS("*You're alone again...", 20);
+                        }
+                    }
+                    lineLevel+=1;
+                    
+                }
+                else if (lineLevel==30) {
+                    delLine("line");
+                    if (LateForSchool == 'Run') {//Head Dicrectly to School!
+                        submitLineS("You reach home and enter..", 20)
+                    } else if (LateForSchool == 'Late') {//Prepare for School Normally and be Late for the First Class
+                        if (lookForBro == 'Wait') {//Late - Wait
+                            submitLineS("*It has been too long.<br>*You decided to look for him anyways", 20);
+                            //next: look for bro late (teacher alreadt left) (scary route)
+                        } else if (lookForBro == 'Look') {//Late - Look
+                            choicesLineS("*He wasn't in the bathroom", 20);
+                        }
+                    } else if (LateForSchool == 'Skip') {//Skip School
+                        if (broSkipSchool == 'Snitch') {//Skip School - Snitch
+                            choicesLineS("*WIP");
+                        } else if (broSkipSchool == 'Confront') {//Skip School - Confront
+                            if (brodealornodeal == 'Accept') {
+                                if (delieveryMan == 'Eat') {
+                                    submitLineS("*Bro realized what you have done.", 50);
+                                } else if (delieveryMan == 'Keep') {
+                                    submitLineS("*Your brother wants to tell you the real reason he is at home...", 35);
+                                }
+                            } else if (brodealornodeal == 'Decline') {
+                                submitLineS("*", 20)
+                            }
+                        } else if (broSkipSchool == 'Hide') {//Skip School - Hide
+                            submitLineS("*You're alone again...", 20);
+                        }
+                    }
+                    lineLevel+=1;
+                    
+                }
+                else if (lineLevel==31) {
                     delLine("line");
                     submitLineS("*wip", 20);
                     lineLevel+=1;
                     
-                } else if (lineLevel==30) {
+                }
+                else if (lineLevel==32) {
                     delLine("line");
                     submitLineS("*wip", 20);
                     lineLevel+=1;
                     
-                } else if (lineLevel==31) {
+                }
+                else if (lineLevel==33) {
                     delLine("line");
                     submitLineS("*wip", 20);
                     lineLevel+=1;
                     
-                } else if (lineLevel==32) {
+                }
+                else if (lineLevel==34) {
                     delLine("line");
                     submitLineS("*wip", 20);
                     lineLevel+=1;
                     
-                } else if (lineLevel==33) {
+                }
+                else if (lineLevel==35) {
                     delLine("line");
                     submitLineS("*wip", 20);
                     lineLevel+=1;
                     
-                } else if (lineLevel==34) {
+                }
+                else if (lineLevel==36) {
                     delLine("line");
                     submitLineS("*wip", 20);
                     lineLevel+=1;
                     
-                } else if (lineLevel==35) {
+                }
+                else if (lineLevel==37) {
                     delLine("line");
                     submitLineS("*wip", 20);
                     lineLevel+=1;
                     
-                } else if (lineLevel==36) {
+                }
+                else if (lineLevel==38) {
                     delLine("line");
                     submitLineS("*wip", 20);
                     lineLevel+=1;
                     
-                } else if (lineLevel==37) {
+                }
+                else if (lineLevel==39) {
                     delLine("line");
                     submitLineS("*wip", 20);
                     lineLevel+=1;
                     
-                } else if (lineLevel==38) {
+                }
+                else if (lineLevel==40) {
                     delLine("line");
                     submitLineS("*wip", 20);
                     lineLevel+=1;
                     
-                } else if (lineLevel==39) {
+                }
+                else if (lineLevel==41) {
                     delLine("line");
                     submitLineS("*wip", 20);
                     lineLevel+=1;
                     
-                } else if (lineLevel==40) {
+                }
+                else if (lineLevel==42) {
                     delLine("line");
-                    submitLineS("*wip", 20);
+                    submitLineS("*By the way, wip stands for (work in progress)", 20);
                     lineLevel+=1;
                     
-                } else if (lineLevel==41) {
+                }
+                else if (lineLevel==43) {
                     delLine("line");
-                    submitLineS("*wip", 20);
+                    choicesLineS("The End. Restart for another ending.", 20, ['Restart']);
                     lineLevel+=1;
                     
-                } else if (lineLevel==42) {
-                    delLine("line");
-                    submitLineS("*btw wip stands for (work in progress)", 20);
-                    lineLevel+=1;
-                    
-                } else if (lineLevel==43) {
-                    delLine("line");
-                    submitLineS("The End", 20);
-                    lineLevel+=1;
-                    
-                } else {
+                }
+                else {
+                    replay=true;
                     lineLevel=0;
                 }
 
