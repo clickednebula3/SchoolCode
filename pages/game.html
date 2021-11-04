@@ -3,6 +3,38 @@
     <head>
         <title>School HTML Gaming</title>
         <meta charset="UTF-8">
+        <style>
+            body {
+                text-align: center;
+            }
+            .HealthMaxGui {
+                position: absolute;
+                opacity: 1;
+                height: 16px;
+                background: red;
+                width: 128px;
+                top: 312px;
+                right: 51%;
+            }
+            .HealthGui {
+                position: absolute;
+                opacity: 1;
+                height: 16px;
+                background: yellow;
+                width: 128px;
+                top: 312px;
+                right: 51%;
+            }
+            .InventoryGui {
+                position: absolute;
+                opacity: 1;
+                height: 16px;
+                background: black;
+                width: 128px;
+                top: 312px;
+                left: 51%;
+            }
+        </style>
     </head>
     <body style="background-color:rgb(245, 155, 155);">
         <img src="../image/Riyadh schools logo.png" alt="Riyadh School Logo" width="128" height="128"/>
@@ -15,6 +47,11 @@
 
         <br>===========<br>HTML GAME<br>===========<br><br>
 
+        <div id="GUI">
+            <div id="HealthbarMax" class="HealthMaxGui"></div>
+            <div id="Healthbar" class="HealthGui"></div>
+            <div id="Inventory" class="InventoryGui"></div>
+        </div>
         <div id="line">
             Press Start (This game is still being developed and the story is not final)<br>
             <input type="submit" value="Start" onclick="lineSorter()">
@@ -22,9 +59,16 @@
         
 
         <script>
+            //global constants
+            const healthpointsMax = 20;
+            const inventorySizeMax =8;
             //global variables
             var lineLevel = 0;
+            var healthpoints = 20;
+                //TODO: add a function to hit player
             var inventory = [];
+            var inventorySize = 0;
+                //TODO: add a function to add items to inventory that checks requirements
 
             //choice variables
             var latestChoice = '';
@@ -45,6 +89,17 @@
             function delLine(elemID) {//deletes the givin line of text
                 var DelBox = document.getElementById(elemID);
                 DelBox.parentNode.removeChild(DelBox);
+            }
+            function updateGui(GUI, HPMAX, HP, INV) {//deletes the givin line of text
+                var GUIBox = document.getElementById(GUI);
+                var HPMAXBox = document.getElementById(HPMAX);
+                var HPBox = document.getElementById(HP);
+                var INVBox = document.getElementById(INV);
+
+                var healthWidth = 6.4*healthpoints;
+                HPBox.style.width = healthWidth + 'px';
+                
+                INVBox.style.width = inventorySize*16 + 'px';//max items should be 8
             }
             function justText(text) {//just adds text to the page (note: doesn't get deleted)
                 document.body.innerHTML+=text;
@@ -126,8 +181,8 @@
                 if (choice == 'Head Dicrectly to School!') {LateForSchool = 'Run';}
                 if (choice == 'Prepare for School Normally and be Late for the First Class') {LateForSchool = 'Late';}
                 if (choice == 'Skip School') {LateForSchool = 'Skip';}
-                if (choice == 'Sit and wait for him') {LateForSchool = 'Wait';}
-                if (choice == 'Look around for him') {LateForSchool = 'Look';}
+                if (choice == 'Sit and wait for him') {lookForBro = 'Wait';}
+                if (choice == 'Look around for him') {lookForBro = 'Look';}
                 if (choice == 'Eat the burger' || choice == 'Eat the pizza') {delieveryMan = 'Eat';}
                 if (choice == 'Put it in the kitchen') {delieveryMan = 'Keep';}
                 if (choice == 'Rat him out') {broSkipSchool = 'Snitch';}
@@ -146,8 +201,11 @@
             function lineSorter() {//manages the level and the line to output
                 var audio = new Audio('../sound/soundeffects/Undertale Sound Effect - Taking Damage.ogg');
                 //audio.play();
+                updateGui('GUI', 'HealthbarMax', 'Healthbar', 'Inventory');
                 if (lineLevel==0) {
                     delLine("line");
+                    inventorySize=0;
+                    healthpoints=20;
                     if (replay) {
                         submitLineS("*Hello again! Welcome to the game", 20);
                     } else {
@@ -503,6 +561,7 @@
                     if (LateForSchool == 'Run') {//Head Dicrectly to School!
                         if (cathelper == 'Help') {
                             inventory.push("Blue Apple");
+                            inventorySize+=1;
                             submitLineS("*You helped that cat!<br>*The cat thanked you and gave you a blue apple<br>*[Blue Apple] has been added to your inventory", 20);
                         } else if (cathelper == 'Dont') {
                             submitLineS("*You continue heading home..", 20);
@@ -523,6 +582,7 @@
                                 if (delieveryMan == 'Eat') {
                                     submitLineS("*Your bro did not find the " + BurgerOrPizzaz + " and is now confused", 20);//next: bro puts 2 and 2 together
                                 } else if (delieveryMan == 'Keep') {
+                                    inventorySize+=1;
                                     inventory.push(BurgerOrPizzaz);
                                     submitLineS("*He gave you a piece<br>*[" + BurgerOrPizzaz + "] has been added to your inventory", 20);
                                 }
@@ -570,7 +630,7 @@
                 else if (lineLevel==30) {
                     delLine("line");
                     if (LateForSchool == 'Run') {//Head Dicrectly to School!
-                        submitLineS("You reach home and enter..", 20)
+                        submitLineS(" ", 20)
                     } else if (LateForSchool == 'Late') {//Prepare for School Normally and be Late for the First Class
                         if (lookForBro == 'Wait') {//Late - Wait
                             submitLineS("*It has been too long.<br>*You decided to look for him anyways", 20);
